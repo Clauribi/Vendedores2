@@ -1,8 +1,11 @@
-package com.example.demo.controller;
+package com.example.demo.domain;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-public class VendedorInput {
+public class Vendedor {
     @NotNull(message = "Nombre is null")
     @NotBlank(message = "Nombre is empty")
     private String nombre;
@@ -16,13 +19,13 @@ public class VendedorInput {
     @Digits(integer = 9, fraction = 0, message = "telefono needs to have 9 digits")
     private int telefono;
 
-    public VendedorInput(String nombre, String direccion, String dni, int telefono) {
+    public Vendedor(String nombre, String direccion, String dni, int telefono) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.dni = dni;
         this.telefono = telefono;
     }
-    public VendedorInput(){
+    public Vendedor(){
 
     }
 

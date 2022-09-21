@@ -1,9 +1,6 @@
 package com.example.demo.controller;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.*;
 
 public class VendedorUpdate {
     @NotNull(message = "Nombre is null")
@@ -13,6 +10,7 @@ public class VendedorUpdate {
     @NotBlank(message = "Direccion is empty")
     private String direccion;
     @Positive(message = "telefono is negative")
+    @Digits(integer = 9, fraction = 0, message = "telefono needs to have 9 digits")
     private int telefono;
 
     public VendedorUpdate(String nombre, String direccion, int telefono) {

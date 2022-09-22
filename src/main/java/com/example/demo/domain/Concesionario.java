@@ -1,13 +1,17 @@
 package com.example.demo.domain;
 
-import com.example.demo.controller.VendedorInput;
 
+import com.example.demo.controller.VendedorUpdate;
+
+import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 public class Concesionario {
+    @NotNull(message = "listadoVendedores is null")
     private HashMap<String, Vendedor> listadoVendedores;
 
     public Concesionario(HashMap<String, Vendedor> listadoVendedores) {
+
         this.listadoVendedores = new HashMap<>();
     }
     public Concesionario(){
@@ -22,11 +26,20 @@ public class Concesionario {
         this.listadoVendedores = listadoVendedores;
     }
 
-    public void noExisteVendedor(String dni) throws NoExisteExcepcion {
+    public boolean noExisteVendedor(String dni) throws NoExisteExcepcion {
         if (!listadoVendedores.containsKey(dni)) throw new NoExisteExcepcion("No existe vendedor.");
+        return false;
     }
     public void altaVendedor (String nombre, String direccion, String dni, int telefono){
         Vendedor vendedorNew = new Vendedor(nombre, direccion, dni, telefono);
         this.listadoVendedores.put(dni, vendedorNew);
+    }
+    public void bajaVendedor (String dni){
+        this.listadoVendedores.remove(dni);
+
+    }
+    public void modificarVendedor(String nombre, String direccion, String dni, int telefono){
+        Vendedor vendedor = listadoVendedores.get(dni);
+
     }
 }

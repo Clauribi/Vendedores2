@@ -1,11 +1,7 @@
 package com.example.demo.domain;
 
-import org.hibernate.validator.constraints.Length;
+import javax.validation.constraints.*;
 
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 
 public class Vendedor {
     @NotNull(message = "Nombre is null")
@@ -17,11 +13,11 @@ public class Vendedor {
     @NotNull(message = "Dni is null")
     @NotBlank(message = "Dni is empty")
     private String dni;
-    @Positive(message = "Telefono is negative")
-    @Length(min = 9,max = 9, message = "Telefono has not 9 digits")
-    private int telefono;
+    @NotNull(message = "Telefono is null")
+    @NotBlank(message = "Telefono is empty")
+    private String telefono;
 
-    public Vendedor(String nombre, String direccion, String dni, int telefono) {
+    public Vendedor(String nombre, String direccion, String dni, String telefono) {
         this.nombre = nombre;
         this.direccion = direccion;
         this.dni = dni;
@@ -55,11 +51,17 @@ public class Vendedor {
         this.dni = dni;
     }
 
-    public int getTelefono() {
+    public String getTelefono() {
         return telefono;
     }
 
-    public void setTelefono(int telefono) {
+    public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public void vendedorUpdate(String nombre, String direccion, String telefono) {
+        setNombre(nombre);
+        setDireccion(direccion);
+        setTelefono(telefono);
     }
 }

@@ -48,4 +48,21 @@ public class Concesionario {
         this.listadoVendedores.put(dni, vendedor);
 
     }
+    public void reservarCoche(Coche coche, Cliente cliente) throws EstadoCocheExcepcion {
+        if (coche.getEstado() == EstadoCoche.libre) {
+            coche.setEstado(EstadoCoche.reservado);
+            cliente.agregarCocheReservado(coche);
+            coche.setCliente(cliente);
+        } else {
+            throw new EstadoCocheExcepcion("El coche no se puede reservar porque el estado es " + coche.getEstado());
+        }
+    }
+
+    public void cancelarReserva(Coche coche) throws EstadoCocheExcepcion {
+        if (coche.getEstado() == EstadoCoche.reservado) {
+            coche.setEstado(EstadoCoche.libre);
+        } else {
+            throw new EstadoCocheExcepcion("No se puede cancelar la reserva del coche porque el estado es: " + coche.getEstado());
+        }
+    }
 }

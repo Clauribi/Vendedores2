@@ -5,7 +5,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ReservaController {
-    private Vendedor vendedor = new Vendedor();
     private Concesionario concesionario = new Concesionario();
     Coche coche = null;
     Cliente cliente = null;
@@ -22,7 +21,7 @@ public class ReservaController {
         try {
             coche = concesionario.getListadoCoches().get(matricula);
             cliente = concesionario.getListadoClientes().get(dni);
-            vendedor.reservarCoche(coche, cliente);
+            concesionario.reservarCoche(coche, cliente);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -30,8 +29,13 @@ public class ReservaController {
 
     @DeleteMapping("/reservas/coche/{matricula}/cliente/{dni}")
     public void cancelarReserva(@PathVariable String matricula, @PathVariable String dni) {
-
-
+        try {
+            coche = concesionario.getListadoCoches().get(matricula);
+            cliente = concesionario.getListadoClientes().get(dni);
+            concesionario.cancelarReserva(coche);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
 

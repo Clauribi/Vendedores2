@@ -1,23 +1,36 @@
 package com.example.demo.domain;
-
-import javax.validation.constraints.NotNull;
 import java.util.HashMap;
 
 public class Concesionario {
-    @NotNull(message = "listadoVendedores is null")
     private HashMap<String, Vendedor> listadoVendedores;
+    private HashMap<String, Cliente> listadoClientes;
+    private HashMap<String, Coche> listadoCoches;
 
-    public Concesionario(HashMap<String, Vendedor> listadoVendedores) {
-
-        this.listadoVendedores = new HashMap<>();
+    public Concesionario(HashMap<String, Vendedor> listadoVendedores, HashMap<String, Cliente> listadoClientes, HashMap<String, Coche> listadoCoches) {
+        this.listadoVendedores = listadoVendedores;
+        this.listadoClientes = listadoClientes;
+        this.listadoCoches = listadoCoches;
     }
+    public Concesionario(){
 
+    }
     public HashMap<String, Vendedor> getListadoVendedores() {
         return listadoVendedores;
     }
 
-    public void setListadoVendedores(HashMap<String, Vendedor> listadoVendedores) {
-        this.listadoVendedores = listadoVendedores;
+    public HashMap<String, Cliente> getListadoClientes() {
+        return listadoClientes;
+    }
+    public void existeCliente(String dni) throws NoExisteExcepcion {
+        if (!listadoClientes.containsKey(dni)) throw new NoExisteExcepcion("No existe el cliente.");
+    }
+
+    public HashMap<String, Coche> getListadoCoches() {
+        return listadoCoches;
+    }
+    public void existeCoche(String matricula) throws NoExisteExcepcion {
+        if (!listadoCoches.containsKey(matricula))
+            throw new NoExisteExcepcion("No existe el coche.");
     }
 
     public void altaVendedor(String nombre, String direccion, String dni, String telefono) {

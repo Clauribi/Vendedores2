@@ -7,11 +7,10 @@ import com.example.demo.domain.Vendedor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
 
 @RestController
 public class VendedorController {
-    private Concesionario concesionario = new Concesionario(new HashMap<>());
+    private Concesionario concesionario = new Concesionario();
 
     @PostMapping("/vendedores")
     public void altaVendedores(@Valid @RequestBody String nombre, String direccion, String dni, String telefono) {

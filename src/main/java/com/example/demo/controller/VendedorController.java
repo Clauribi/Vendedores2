@@ -13,46 +13,30 @@ public class VendedorController {
     private Concesionario concesionario = new Concesionario();
 
     @PostMapping("/vendedores")
-    public void altaVendedores(@Valid @RequestBody String nombre, String direccion, String dni, String telefono) {
+    public void altaVendedores(@Valid @RequestBody VendedorInput vendedorInput) {
         try {
-            if (concesionario.getListadoVendedores().containsKey(dni)) {
-                throw new ExisteExcepcion("Ya hay un vendedor con ese DNI.");
-            } else {
-                concesionario.altaVendedor(nombre, direccion, dni, telefono);
-                System.out.println("El vendedor se ha dado de alta con exito.");
-            }
+            concesionario.addVendedor(vendedorInput.createDomainObject());
         } catch (ExisteExcepcion e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-
     @DeleteMapping("/vendedores/{dni}")
-    public void bajaVendedores(@Valid @PathVariable String dni) throws NoExisteExcepcion {
+    public void bajaVendedores(@PathVariable String dni) throws NoExisteExcepcion {
         try {
-            if (concesionario.getListadoVendedores().isEmpty()) {
-                System.out.println("No existen vendedores.");
-            } else if (!concesionario.getListadoVendedores().containsKey(dni)) {
-                throw new NoExisteExcepcion("el vendedor con dni: " + dni);
-            } else {
-                concesionario.bajaVendedor(dni);
-                System.out.println("El vendedor se ha dado de baja");
-            }
+            concesionario.deleteVendedor(dni);
+
         } catch (NoExisteExcepcion e) {
             System.out.println(e.getMessage());
         }
     }
-
+    
     @PutMapping("/vendedores/{dni}")
-    public void modificarVendedores(@PathVariable String dni) {
+    public void modificarVendedores(@PathVariable String dni,@Valid @RequestBody VendedorUpdate vendedorUpdate ) {
         try {
-            Vendedor vendedorUpdate = concesionario.getListadoVendedores().get(dni);
-            if (!concesionario.getListadoVendedores().containsKey(dni)) {
-                throw new NoExisteExcepcion("el vendedor con dni: " + dni);
-            } else if (vendedorUpdate != null)
-                concesionario.modificarVendedor(vendedorUpdate.getNombre(), vendedorUpdate.getDireccion(), dni, vendedorUpdate.getTelefono());
-            System.out.println("El vendedor se ha modificado");
-        }catch (NoExisteExcepcion e){
+            Vendedor vendedor = vendedorUpdate.createDomainObject(dni);
+                concesionario.updateVendedor(vendedor);
+        } catch (NoExisteExcepcion e) {
             System.out.println(e.getMessage());
         }
     }

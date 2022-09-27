@@ -1,29 +1,27 @@
-package com.example.demo.domain;
+package com.example.demo.controller;
+
+import com.example.demo.domain.Vendedor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-public class Persona {
+public class VendedorUpdate {
     @NotNull(message = "Nombre is null")
     @NotBlank(message = "Nombre is empty")
     protected String nombre;
     @NotNull(message = "Direccion is null")
     @NotBlank(message = "Direccion is empty")
     protected String direccion;
-    @NotNull(message = "Dni is null")
-    @NotBlank(message = "Dni is empty")
-    protected String dni;
     @NotNull(message = "Telefono is null")
     @NotBlank(message = "Telefono is empty")
     protected String telefono;
 
-    public Persona(String nombre, String direccion, String dni, String telefono) {
+    public VendedorUpdate(String nombre, String direccion, String telefono) {
         this.nombre = nombre;
         this.direccion = direccion;
-        this.dni = dni;
         this.telefono = telefono;
     }
-    public Persona(){
+    public VendedorUpdate(){
 
     }
 
@@ -43,14 +41,6 @@ public class Persona {
         this.direccion = direccion;
     }
 
-    public String getDni() {
-        return dni;
-    }
-
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-
     public String getTelefono() {
         return telefono;
     }
@@ -59,4 +49,7 @@ public class Persona {
         this.telefono = telefono;
     }
 
+    public Vendedor createDomainObject(String dni) {
+        return new Vendedor(this.nombre, this.direccion, dni, this.telefono);
+    }
 }

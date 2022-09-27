@@ -7,12 +7,11 @@ public class Coche {
     private EstadoCoche estado;
     private Cliente cliente;
 
-    public Coche(String marca, String modelo, String matricula, EstadoCoche estado, Cliente cliente) {
+    public Coche(String marca, String modelo, String matricula) {
         this.marca = marca;
         this.modelo = modelo;
         this.matricula = matricula;
-        this.estado = estado;
-        this.cliente = cliente;
+        this.estado = EstadoCoche.libre;
     }
     public Coche(){
 

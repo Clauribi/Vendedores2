@@ -7,14 +7,4 @@ public class Vendedor extends Persona{
         super(nombre, direccion, dni, telefono);
     }
 
-    public Vendedor() {
-    }
-
-
-
-    public void vendedorUpdate(String nombre, String direccion, String telefono) {
-        setNombre(nombre);
-        setDireccion(direccion);
-        setTelefono(telefono);
-    }
 }

@@ -1,6 +1,5 @@
 package com.example.demo.domain;
 
-import com.example.demo.controller.VendedorUpdate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -57,7 +56,8 @@ public class Concesionario {
             this.listadoVendedores.put(vendedor.getDni(), vendedor);
         }
     }
-    public List<Vendedor> getAllVendedores(){
+
+    public List<Vendedor> getAllVendedores() {
         return new ArrayList<>(listadoVendedores.values());
     }
 
@@ -69,7 +69,8 @@ public class Concesionario {
             this.listadoClientes.put(cliente.getDni(), cliente);
         }
     }
-    public List<Cliente> getAllClientes(){
+
+    public List<Cliente> getAllClientes() {
         return new ArrayList<>(listadoClientes.values());
     }
 
@@ -86,13 +87,20 @@ public class Concesionario {
         }
     }
 
+    public List<Coche> getAllCoches() {
+        return new ArrayList<>(listadoCoches.values());
+    }
+
     public void existeCoche(String matricula) throws NoExisteExcepcion {
         if (!listadoCoches.containsKey(matricula))
             throw new NoExisteExcepcion("No existe el coche.");
     }
 
     //RESERVAS
-    public void reservarCoche(Coche coche, Cliente cliente) throws EstadoCocheExcepcion {
+    public void reservarCoche(String matricula, String dni) throws EstadoCocheExcepcion, NoExisteExcepcion {
+        Coche coche = listadoCoches.get(matricula);
+        Cliente cliente = listadoClientes.get(dni);
+    if (coche!=null&&cliente!=null) {
         if (coche.getEstado() == EstadoCoche.libre) {
             coche.setEstado(EstadoCoche.reservado);
             cliente.agregarCocheReservado(coche);
@@ -100,9 +108,12 @@ public class Concesionario {
         } else {
             throw new EstadoCocheExcepcion("El coche no se puede reservar porque el estado es " + coche.getEstado());
         }
-    }
+    }else throw new NoExisteExcepcion("no existe el coche o/y el cliente");
+}
 
-    public void cancelarReserva(Coche coche) throws EstadoCocheExcepcion {
+
+    public void cancelarReserva(String matricula) throws EstadoCocheExcepcion {
+        Coche coche = listadoCoches.get(matricula);
         if (coche.getEstado() == EstadoCoche.reservado) {
             coche.setEstado(EstadoCoche.libre);
         } else {

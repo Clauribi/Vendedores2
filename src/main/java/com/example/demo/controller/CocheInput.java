@@ -1,10 +1,14 @@
 package com.example.demo.controller;
 
-import com.example.demo.domain.Cliente;
 import com.example.demo.domain.Coche;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class CocheInput extends CocheUpdate{
-    private String matricula;
+    @NotNull(message = "Matricula is null")
+    @NotBlank(message = "Matricula is empty")
+    protected String matricula;
 
     public CocheInput(String marca, String modelo, String matricula) {
         super(marca, modelo);

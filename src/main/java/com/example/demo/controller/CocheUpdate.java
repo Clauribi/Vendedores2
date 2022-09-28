@@ -4,8 +4,15 @@ import com.example.demo.domain.Cliente;
 import com.example.demo.domain.Coche;
 import com.example.demo.domain.EstadoCoche;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class CocheUpdate {
+    @NotNull(message = "Marca is null")
+    @NotBlank(message = "Marca is empty")
     protected String marca;
+    @NotNull(message = "Modelo is null")
+    @NotBlank(message = "Modelo is empty")
     protected String modelo;
     protected EstadoCoche estado;
     protected Cliente cliente;

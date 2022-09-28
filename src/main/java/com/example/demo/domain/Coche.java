@@ -1,10 +1,19 @@
 package com.example.demo.domain;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
 public class Coche {
-    private String marca;
-    private String modelo;
+    @NotNull(message = "Marca is null")
+    @NotBlank(message = "Marca is empty")
+    protected String marca;
+    @NotNull(message = "Modelo is null")
+    @NotBlank(message = "Modelo is empty")
+    protected String modelo;
+    @NotNull(message = "Matricula is null")
+    @NotBlank(message = "Matricula is empty")
     private String matricula;
-    private EstadoCoche estado;
+    protected EstadoCoche estado;
     private Cliente cliente;
 
     public Coche(String marca, String modelo, String matricula) {

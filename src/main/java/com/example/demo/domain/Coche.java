@@ -14,7 +14,6 @@ public class Coche {
     @NotBlank(message = "Matricula is empty")
     private String matricula;
     protected EstadoCoche estado;
-    private Cliente cliente;
 
     public Coche(String marca, String modelo, String matricula) {
         this.marca = marca;
@@ -58,11 +57,4 @@ public class Coche {
         this.estado = estado;
     }
 
-    public Cliente getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Cliente cliente) {
-        this.cliente = cliente;
-    }
 }

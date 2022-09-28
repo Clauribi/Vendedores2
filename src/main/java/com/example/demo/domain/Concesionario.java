@@ -97,19 +97,16 @@ public class Concesionario {
     }
 
     //RESERVAS
-    public void reservarCoche(String matricula, String dni) throws EstadoCocheExcepcion, NoExisteExcepcion {
+    public void reservarCoche(String matricula) throws EstadoCocheExcepcion, NoExisteExcepcion {
         Coche coche = listadoCoches.get(matricula);
-        Cliente cliente = listadoClientes.get(dni);
-    if (coche!=null&&cliente!=null) {
-        if (coche.getEstado() == EstadoCoche.libre) {
-            coche.setEstado(EstadoCoche.reservado);
-            cliente.agregarCocheReservado(coche);
-            coche.setCliente(cliente);
-        } else {
-            throw new EstadoCocheExcepcion("El coche no se puede reservar porque el estado es " + coche.getEstado());
-        }
-    }else throw new NoExisteExcepcion("no existe el coche o/y el cliente");
-}
+        if (coche != null) {
+            if (coche.getEstado() == EstadoCoche.libre) {
+                coche.setEstado(EstadoCoche.reservado);
+            } else {
+                throw new EstadoCocheExcepcion("El coche no se puede reservar porque el estado es " + coche.getEstado());
+            }
+        } else throw new NoExisteExcepcion("no existe el coche o/y el cliente");
+    }
 
 
     public void cancelarReserva(String matricula) throws EstadoCocheExcepcion {

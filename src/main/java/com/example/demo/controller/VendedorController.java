@@ -48,6 +48,6 @@ public class VendedorController {
 
     @GetMapping("/vendedores")
     public ResponseEntity<List<Vendedor>> getVendedores() {
-        return ResponseEntity.ok(concesionario.getAll());
+        return ResponseEntity.ok(concesionario.getAllVendedores());
     }
 }

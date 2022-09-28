@@ -57,7 +57,7 @@ public class Concesionario {
             this.listadoVendedores.put(vendedor.getDni(), vendedor);
         }
     }
-    public List<Vendedor> getAll(){
+    public List<Vendedor> getAllVendedores(){
         return new ArrayList<>(listadoVendedores.values());
     }
 
@@ -69,15 +69,21 @@ public class Concesionario {
             this.listadoClientes.put(cliente.getDni(), cliente);
         }
     }
+    public List<Cliente> getAllClientes(){
+        return new ArrayList<>(listadoClientes.values());
+    }
 
     public void existeCliente(String dni) throws NoExisteExcepcion {
         if (!listadoClientes.containsKey(dni)) throw new NoExisteExcepcion("No existe el cliente.");
     }
 
     //COCHES
-    public void altaCoche(String marca, String modelo, String matricula) {
-        Coche cocheNew = new Coche(marca, modelo, matricula);
-        this.listadoCoches.put(matricula, cocheNew);
+    public void addCoche(Coche coche) throws ExisteExcepcion {
+        if (listadoCoches.get(coche.getMatricula()) != null) {
+            throw new ExisteExcepcion("el coche.");
+        } else {
+            this.listadoCoches.put(coche.getMatricula(), coche);
+        }
     }
 
     public void existeCoche(String matricula) throws NoExisteExcepcion {

@@ -2,7 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.domain.Cliente;
 import com.example.demo.domain.Coche;
-import com.example.demo.domain.EstadoCoche;
+import com.example.demo.domain.EstadoReserva;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -14,13 +14,13 @@ public class CocheUpdate {
     @NotNull(message = "Modelo is null")
     @NotBlank(message = "Modelo is empty")
     protected String modelo;
-    protected EstadoCoche estado;
+    protected EstadoReserva estado;
     protected Cliente cliente;
 
     public CocheUpdate(String marca, String modelo) {
         this.marca = marca;
         this.modelo = modelo;
-        this.estado = EstadoCoche.libre;
+        this.estado = EstadoReserva.libre;
     }
     public CocheUpdate(){
 
@@ -42,11 +42,11 @@ public class CocheUpdate {
         this.modelo = modelo;
     }
 
-    public EstadoCoche getEstado() {
+    public EstadoReserva getEstado() {
         return estado;
     }
 
-    public void setEstado(EstadoCoche estado) {
+    public void setEstado(EstadoReserva estado) {
         this.estado = estado;
     }
 

@@ -1,5 +1,5 @@
 package com.example.demo.domain;
 
-public enum EstadoCoche {
+public enum EstadoReserva {
     reservado, libre
 }

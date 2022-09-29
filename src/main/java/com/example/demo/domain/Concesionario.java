@@ -9,11 +9,13 @@ public class Concesionario {
     private HashMap<String, Vendedor> listadoVendedores = new HashMap<>();
     private HashMap<String, Cliente> listadoClientes = new HashMap<>();
     private HashMap<String, Coche> listadoCoches = new HashMap<>();
+    private HashMap<String, Reserva> listadoReservas = new HashMap<>();
 
-    public Concesionario(HashMap<String, Vendedor> listadoVendedores, HashMap<String, Cliente> listadoClientes, HashMap<String, Coche> listadoCoches) {
+    public Concesionario(HashMap<String, Vendedor> listadoVendedores, HashMap<String, Cliente> listadoClientes, HashMap<String, Coche> listadoCoches, HashMap<String, Reserva> listadoReservas) {
         this.listadoVendedores = listadoVendedores;
         this.listadoClientes = listadoClientes;
         this.listadoCoches = listadoCoches;
+        this.listadoReservas = listadoReservas;
     }
 
     public Concesionario() {
@@ -30,6 +32,10 @@ public class Concesionario {
 
     public HashMap<String, Coche> getListadoCoches() {
         return listadoCoches;
+    }
+
+    public HashMap<String, Reserva> getListadoReservas() {
+        return listadoReservas;
     }
 
     //VENDEDORES
@@ -97,24 +103,16 @@ public class Concesionario {
     }
 
     //RESERVAS
-    public void reservarCoche(String matricula) throws EstadoCocheExcepcion, NoExisteExcepcion {
-        Coche coche = listadoCoches.get(matricula);
-        if (coche != null) {
-            if (coche.getEstado() == EstadoCoche.libre) {
-                coche.setEstado(EstadoCoche.reservado);
-            } else {
-                throw new EstadoCocheExcepcion("El coche no se puede reservar porque el estado es " + coche.getEstado());
-            }
-        } else throw new NoExisteExcepcion("no existe el coche o/y el cliente");
+    public void hacerReserva(Reserva reserva) throws ExisteExcepcion {
+        if (listadoReservas.get(reserva.getMatricula()) != null) {
+            throw new ExisteExcepcion("el coche.");
+        } else {
+            this.listadoReservas.put(reserva.getMatricula(), reserva);
+        }
     }
 
+    public void cancelarReserva(String matricula) {
+        this.listadoReservas.remove(matricula);
 
-    public void cancelarReserva(String matricula) throws EstadoCocheExcepcion {
-        Coche coche = listadoCoches.get(matricula);
-        if (coche.getEstado() == EstadoCoche.reservado) {
-            coche.setEstado(EstadoCoche.libre);
-        } else {
-            throw new EstadoCocheExcepcion("No se puede cancelar la reserva del coche porque el estado es: " + coche.getEstado());
-        }
     }
 }

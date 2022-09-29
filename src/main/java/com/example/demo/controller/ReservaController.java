@@ -1,12 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.domain.*;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-import java.util.List;
+import java.util.ArrayList;
 
 
 @RestController
@@ -14,37 +11,26 @@ public class ReservaController {
     private Concesionario concesionario = new Concesionario();
 
 
-    @PostMapping("/reservas/coche/{matricula}")
-    public void reservarCoche(@PathVariable String matricula) {
+    @PostMapping("/reservas/coche/{matricula}/cliente/{dni}")
+    public String hacerReserva(@PathVariable String matricula, @PathVariable String dni) {
         try {
-            concesionario.reservarCoche(matricula);
+            ArrayList<Reserva> listaReservas = new ArrayList<>();
+            for (Reserva reserva : concesionario.getListadoReservas().values()) {
+                listaReservas.add(reserva);
+            } return listaReservas.toString();
+            
         } catch (Exception e) {
             e.getMessage();
-        }
+        } return null;
     }
 
-    @DeleteMapping("/reservas/coche/{matricula}")
-    public void cancelarReserva(@PathVariable String matricula) {
+    @DeleteMapping("/reservas/coche/{matricula/cliente/{dni}")
+    public void cancelarReserva(@PathVariable String matricula, @PathVariable String dni) {
         try {
             concesionario.cancelarReserva(matricula);
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-    //COCHESSS
-    @PostMapping("/coches")
-    public ResponseEntity<String> altaCoches(@Valid @RequestBody CocheInput cocheInput) {
-        try {
-            concesionario.addCoche(cocheInput.createDomainObject());
-        } catch (ExisteExcepcion e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().build();
-        }
-        return ResponseEntity.status(HttpStatus.CREATED).build();
-    }
-    @GetMapping("/coches")
-    public ResponseEntity<List<Coche>> getCoches() {
-        return ResponseEntity.ok(concesionario.getAllCoches());
     }
 
 }
